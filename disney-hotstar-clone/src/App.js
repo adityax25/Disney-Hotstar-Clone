@@ -9,7 +9,6 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          {/* Hello */}
           <Route exact path='/' element={<Login/>}/>
         </Routes>
       </Router>
