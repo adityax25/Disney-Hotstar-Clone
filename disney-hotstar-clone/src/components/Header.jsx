@@ -1,17 +1,21 @@
 import styled from 'styled-components';
-import { auth, provider, storage, db } from "../firebase";
-
+import { auth,provider,database,firestore,storage } from '../firebase';
+import {signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 const Header = (props) => {
 
     const handleAuth = () => {
-        auth
-            .signInWithPopup(provider)
+        signInWithPopup(auth, provider)
             .then((result) => {
                 console.log(result);
-            })
-            .catch((error) => {
-                alert(error.message);
-            })
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                const user = result.user;
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const email = error.customData.email;
+                const credential = GoogleAuthProvider.credentialFromError(error);
+            });
     }
 
     return (
@@ -45,7 +49,7 @@ const Header = (props) => {
                     <span>SERIES</span>
                 </a>
             </NavMenu>
-            <Login onclick={handleAuth}>Login</Login>
+            <Login onclick={handleAuth()}>Login</Login>
         </Nav>
     )
 }
