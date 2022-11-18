@@ -2,23 +2,49 @@ import styled from 'styled-components';
 import { auth, provider, database, firestore, storage } from '../firebase';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getDatabase } from "firebase/database";
-
-const handleAuth = async () => {
-    await signInWithPopup(auth, provider)
-        .then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            const user = result.user;
-            console.log(result);
-        }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            const email = error.customData.email;
-            const credential = GoogleAuthProvider.credentialFromError(error);
-        });
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import {
+    selectUserName,
+    selectUserEmail,
+    selectUserPhoto,
+    setUserLoginDetails
+} from "../features/user/userSlice";
 
 const Header = (props) => {
+
+    const dispatch = useDispatch();
+    const history = useNavigate();
+    const username = useSelector(selectUserName);
+    const useremail = useSelector(selectUserEmail);
+    const userphoto = useSelector(selectUserPhoto);
+
+    const handleAuth = async () => {
+        await signInWithPopup(auth, provider)
+            .then((result) => {
+                setUser(result.user);
+                // console.log(result);
+                // const credential = GoogleAuthProvider.credentialFromResult(result);
+                // const token = credential.accessToken;
+                // const user = result.user;
+            }).catch((error) => {
+                alert(error.message);
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
+                // const email = error.customData.email;
+                // const credential = GoogleAuthProvider.credentialFromError(error);
+            });
+    };
+
+    const setUser = (user) => {
+        dispatch(
+            setUserLoginDetails({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL
+            }));
+    };
+
     return (
         <Nav>
             <Logo>
@@ -170,4 +196,4 @@ const Login = styled.a`
     }
 `;
 
-export { Header, handleAuth };
+export default Header;

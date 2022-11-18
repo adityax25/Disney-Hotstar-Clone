@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { handleAuth } from "./Header";
+import handleAuth from "./Header";
 
 const Login = (props) => {
     return (
