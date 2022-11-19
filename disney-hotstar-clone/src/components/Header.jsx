@@ -2,28 +2,28 @@ import styled from 'styled-components';
 import { auth, provider, database, firestore, storage } from '../firebase';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getDatabase } from "firebase/database";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-import {
-    selectUserName,
-    selectUserEmail,
-    selectUserPhoto,
-    setUserLoginDetails
-} from "../features/user/userSlice";
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useNavigate } from "react-router-dom";
+// import {
+//     selectUserName,
+//     selectUserEmail,
+//     selectUserPhoto,
+//     setUserLoginDetails
+// } from "../features/user/userSlice";
 
 const Header = (props) => {
 
-    const dispatch = useDispatch();
-    const history = useNavigate();
-    const username = useSelector(selectUserName);
-    const useremail = useSelector(selectUserEmail);
-    const userphoto = useSelector(selectUserPhoto);
+    // const dispatch = useDispatch();
+    // const history = useNavigate();
+    // const username = useSelector(selectUserName);
+    // const useremail = useSelector(selectUserEmail);
+    // const userphoto = useSelector(selectUserPhoto);
 
     const handleAuth = async () => {
         await signInWithPopup(auth, provider)
             .then((result) => {
-                setUser(result.user);
-                // console.log(result);
+                // setUser(result.user);
+                console.log(result);
                 // const credential = GoogleAuthProvider.credentialFromResult(result);
                 // const token = credential.accessToken;
                 // const user = result.user;
@@ -36,14 +36,14 @@ const Header = (props) => {
             });
     };
 
-    const setUser = (user) => {
-        dispatch(
-            setUserLoginDetails({
-                name: user.displayName,
-                email: user.email,
-                photo: user.photoURL
-            }));
-    };
+    // const setUser = (user) => {
+    //     dispatch(
+    //         setUserLoginDetails({
+    //             name: user.displayName,
+    //             email: user.email,
+    //             photo: user.photoURL
+    //         }));
+    // };
 
     return (
         <Nav>
@@ -196,4 +196,5 @@ const Login = styled.a`
     }
 `;
 
+// export { handleAuth };
 export default Header;
