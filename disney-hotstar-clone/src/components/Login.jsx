@@ -1,7 +1,27 @@
 import styled from 'styled-components';
 import handleAuth from "./Header";
+import { auth, provider, database, firestore, storage } from '../firebase';
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const Login = (props) => {
+
+    const handleAuth = async () => {
+        await signInWithPopup(auth, provider)
+            .then((result) => {
+                // setUser(result.user);
+                console.log(result);
+                // const credential = GoogleAuthProvider.credentialFromResult(result);
+                // const token = credential.accessToken;
+                // const user = result.user;
+            }).catch((error) => {
+                alert(error.message);
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
+                // const email = error.customData.email;
+                // const credential = GoogleAuthProvider.credentialFromError(error);
+            });
+    };
+
     return (
         <Container>
             <Content>

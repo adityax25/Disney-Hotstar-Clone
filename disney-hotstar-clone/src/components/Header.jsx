@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { auth, provider, database, firestore, storage } from '../firebase';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getDatabase } from "firebase/database";
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useNavigate } from "react-router-dom";
-// import {
-//     selectUserName,
-//     selectUserEmail,
-//     selectUserPhoto,
-//     setUserLoginDetails
-// } from "../features/user/userSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import {
+    selectUserName,
+    selectUserEmail,
+    selectUserPhoto,
+    setUserLoginDetails
+} from "../features/user/userSlice";
 
 const Header = (props) => {
 
@@ -18,6 +18,15 @@ const Header = (props) => {
     // const username = useSelector(selectUserName);
     // const useremail = useSelector(selectUserEmail);
     // const userphoto = useSelector(selectUserPhoto);
+
+    // const setUser = (user) => {
+    //     dispatch(
+    //         setUserLoginDetails({
+    //             name: user.displayName,
+    //             email: user.email,
+    //             photo: user.photoURL
+    //         }));
+    // };
 
     const handleAuth = async () => {
         await signInWithPopup(auth, provider)
@@ -35,15 +44,6 @@ const Header = (props) => {
                 // const credential = GoogleAuthProvider.credentialFromError(error);
             });
     };
-
-    // const setUser = (user) => {
-    //     dispatch(
-    //         setUserLoginDetails({
-    //             name: user.displayName,
-    //             email: user.email,
-    //             photo: user.photoURL
-    //         }));
-    // };
 
     return (
         <Nav>
@@ -196,5 +196,5 @@ const Login = styled.a`
     }
 `;
 
-// export { handleAuth };
+// export { handleAuth, Header };
 export default Header;
